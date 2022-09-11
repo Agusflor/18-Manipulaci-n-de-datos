@@ -67,7 +67,7 @@ const moviesController = {
         })
         .then(movie=>{
             console.log(movie);
-            return res.redirect('/movies/detail'+ movie.id)
+            return res.redirect('/movies/detail/'+ movie.id)
         })
         .catch(error=>{console.log(error)})
     },
@@ -101,14 +101,14 @@ const moviesController = {
                 id: req.params.id
             }
         })
-        .then(()=>res.redirect('/movies/detail'+ req.params.id)
+        .then(()=>res.redirect('/movies/detail/'+ req.params.id)
         )
         .catch(error=>{console.log(error)})
     },
     delete: function (req, res) {
         db.Movie.findByPk(req.params.id)
-        .then(Movie => res.render('moviesDelete'),{
-            Movie
+        .then(movie => {
+            res.render('moviesDelete', {Movie:movie});
         })
         .catch(error=>console.log(error))
     },
@@ -118,7 +118,7 @@ const moviesController = {
                 id: req.params.id
             }
         })
-        .then(()=> res.render('/movies'))
+        .then(()=> res.redirect('/movies'))
         .catch(error=>console.log(error))
     }
 
